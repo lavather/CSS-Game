@@ -1,0 +1,98 @@
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Maiden+Orange&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="gameContainer">
+    <form>
+
+    <input type="radio" name="screen" id="start" checked tabindex="-1">
+    <input type="radio" name="screen" id="game" tabindex="-1">
+    <input type="radio" name="screen" id="info" tabindex="-1">
+
+    <div class="screen screen_start">
+      <h1>Catch The Oranges!</h1>
+      <div class="labels">
+          <label for="game" class="buttonish">
+              Start Game
+          </label>
+          <label for="info" class="buttonish">
+              Info
+          </label>
+      </div>
+
+    </div>
+      <div class="screen screen_info">
+      <h2>How to play</h2>
+      <p>Catch all the Oranges to earn points, but catch an Apple and you lose points!</p>
+      <label for="start" class="buttonish">
+        Back
+      </label>
+    </div>
+
+    <div class="screen screen_game">
+      <div class="oranges">
+        <input type="radio" class="orange" style="--i: 1;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 2;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 3;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 4;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 5;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 6;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 7;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 8;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 9;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 10;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 11;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 12;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 13;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 14;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 15;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 16;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 17;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 18;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 19;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 20;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 21;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 22;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 23;" tabindex="-1">
+        <input type="radio" class="orange" style="--i: 24;" tabindex="-1">
+      </div>
+      <div class="apples">
+        <input type="radio" class="apple" style="--i: 1;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 2;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 3;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 4;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 5;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 6;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 7;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 8;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 9;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 10;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 11;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 12;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 13;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 14;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 15;" tabindex="-1">
+        <input type="radio" class="apple" style="--i: 16;" tabindex="-1">
+      </div>
+      <div class="gui">
+          <div class="timer">
+            <span></span>
+          </div>
+          <div class="score">Score:</div>
+      </div>
+    </div>
+        <div class="screen screen_end">
+        <h2>Game Over</h2>
+        <p class="good"><span>Good</span> oranges caught: <span class="result"></span> x 1 point</p>
+        <p class="bad"><span>Bad</span> oranges caught: <span class="result"></span> x -2 point</p>
+        <p class="total">Total score: <span class="result"></span></p>
+        <button type="reset" class="buttonish" tabindex="-1">
+          Restart Game
+        </button>
+      </div>
+    </form>
+  </div>
+</body>

@@ -1,0 +1,341 @@
+*, *::before, *::after {
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+body {
+    background-color:#000;
+    color:#fff;
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    overflow:clip;
+    font-family: "Maiden Orange", serif;
+}
+
+.gameContainer {
+    position:relative;
+    width:80vmin;
+    container-type: inline-size;
+    aspect-ratio:1;
+    outline: 2px solid white;
+    
+    background-image: url("./images/Tree.jpg");
+    background-size:100%;
+    background-position-x: 50%;
+    background-position-y:0%;
+    transition:all 1s 0.25s;
+    overflow:clip;
+
+    &:has(#game:checked){
+        background-size:125%;
+        background-position-y:100%;
+        animation: treeShake 0.1s 1.5s alternate  ease-in-out 10;
+    }
+}
+
+@keyframes treeShake{
+    from {background-position-x: 45%;}
+    to {background-position-x: 55%;}
+}
+
+form {
+    counter-reset: score oranges apples;
+}
+
+input[name="screen"]{
+    display:none; 
+    /* translate:0 -2em; */
+    &#start:checked ~ .screen_start,
+    &#game:checked ~ .screen_game,
+    &#info:checked ~.screen_info {
+        display:grid;
+        opacity:1;
+
+        @starting-style {
+            opacity:0;
+        }
+    }
+
+    &#game:checked ~ .screen_game .orange{
+        animation:drop 2.5s var(--delay, 0s) ease-in forwards var(--playstate, running);
+    }
+
+    &#game:checked ~ .screen_game .apple{
+        animation:drop 3.5s var(--delay, 0s) ease-in forwards var(--playstate, running);
+    }
+
+    &#game:checked ~ .screen_end{
+        animation:screenEnd 0.5s 29.5s forwards;
+    }
+
+    &#game:checked ~ .screen_game .gui{
+        animation:gui 0.5s 29.5s forwards;
+    }
+}
+
+@keyframes screenEnd{
+    to {
+        opacity:1;
+        pointer-events: revert;
+    }
+}
+
+@keyframes gui {
+    to { translate:0 100%;}
+}
+
+@keyframes drop {
+    from {
+        translate: var(--translateX) -60cqi; /*we are adding this in for firefox debugging*/
+    }
+    to {
+        translate: calc(var(--translateX) + var(--offset, 0px)) 60cqi;
+    }
+}
+
+.screen {
+    position:absolute;
+    inset:0;
+    opacity:0;
+    display:none;
+    gap:5cqi;
+    place-items:center;
+    align-content:center;
+    transition: opacity 1s, display 1s;
+    transition-behavior: allow-discrete;
+    user-select:none;
+}
+
+.screen_end{
+    display:grid;
+    pointer-events: none;
+    background-color:#fffa;
+    color:#000;
+
+    p {
+        font-size:6cqi;
+    }
+
+    span {
+        font-size:8cqi;
+    }
+
+    .good span{
+        color:darkorange;
+
+        &.result::after {
+            content: counter(oranges);
+        }
+    }
+
+    .bad span {
+        color:darkred;
+
+        &.result::after {
+            content: counter(apples);
+        }
+    }
+
+    .total span{
+        color:orangered;
+        &.result::after {
+            content: counter(score);
+        }
+    }
+}
+
+.screen_info{
+    padding:2em;
+    background-color:#fffa;
+    color:#000;
+}
+
+.labels{
+    display:flex;
+    gap:4cqi;
+    transform:skewY(-5deg);
+}
+
+h1{
+    font-size: 12cqi;
+    text-shadow:1cqi 1cqi 5cqi black;
+    transform:skewY(-5deg)
+}
+
+h2{
+    font-size:8cqi;
+    transform:skewY(-5deg);
+}
+
+.buttonish{
+    font:inherit;
+    font-size:6cqi;
+    background-color:#000a;
+    padding:1em; /*this em is relative to the 6cqi i defined above. 
+    if i change the above font size, this will scale*/
+    color:#fff;
+    border: 1cqi solid #fff;
+    box-shadow:1cqi 1cqi 5cqi #000;
+    transform:skewY(-5deg);
+    cursor: pointer;
+}
+
+.oranges, .apples{
+    position:absolute;
+    inset:50%;
+}
+
+.orange{
+    --rnd:calc(mod(sin((var(--i) / 24)* 90deg) * 731, 1));
+    --rnd2:calc(mod(sin((var(--i) / 24)* 90deg) * 889, 1));
+    --translateX:calc(var(--rnd)* 91cqi - 45cqi);
+    --angle:calc(var(--rnd)* 60deg - 30deg);
+    --delay: calc(var(--i) * 1s + 3s);
+    --offset: calc((var(--rnd2)* 2 - 1)*20cqi);
+    --scale:calc(mod(sin((var(--i) / 24)* 90deg) * 9231, 1) *0.3 + 0.7);
+
+    appearance:none;
+    position:absolute;
+    inset:-5cqi; /*creates a square right in the center of my container. 
+    the higher the negative number, the bigger the square will get*/
+    background-image: radial-gradient(circle at top,black, orange 16%, red);
+    box-shadow:1cqi 1cqi 5cqi #000;
+    border-radius:50%;
+    translate: var(--translateX) -60cqi;
+    rotate: var(--angle);
+    cursor: pointer;
+    scale:var(--scale);
+    transition: all .3s;
+
+    &::before, &::after{
+        content:'';
+        position:absolute;
+        left:50%;
+        top:10%;
+        width: 4cqi;
+        aspect-ratio:1;
+        background-color:limegreen;
+        border-radius: 20% 100% 0% 100%;
+        box-shadow:inherit;
+        rotate:150deg;
+        transform-origin:top left;
+        transition:opacity 0.2s;
+    }
+    
+    &::after{
+        top:10%;
+        rotate:-90deg;
+    }
+
+    &:hover{
+        box-shadow:1cqi 1cqi 5cqi yellow;
+    }
+
+    &:focus{
+        --playState:paused;
+    }
+    
+    &:checked{
+        opacity:0;
+        transform: translateY(-10cqi) rotate(360deg) scale(3);
+        --playstate: paused;
+        counter-increment: score oranges;
+    } 
+}
+
+.apple{
+    --rnd:calc(mod(sin((var(--i) / 24)* 90deg) * 371, 1));
+    --translateX:calc(var(--rnd)* 91cqi - 45cqi);
+    --angle:calc(var(--rnd)* 60deg - 30deg);
+    --delay: calc(var(--i) * 1.25s + 6s);
+
+    appearance:none;
+    position:absolute;
+    inset:-5cqi; /*creates a square right in the center of my container. 
+    the higher the negative number, the bigger the square will get*/
+    background-image: radial-gradient(circle at top,black, rgb(119, 89, 33) 16%, rgb(53, 51, 51));
+    box-shadow:1cqi 1cqi 5cqi #000;
+    border-radius:50% 39% 48% 51% / 31% 49% 43% 79%;
+    translate: var(--translateX) -60cqi;
+    rotate: var(--angle);
+    cursor: pointer;
+    transition: all .3s;
+
+    &::before, &::after{
+         content:'';
+        position:absolute;
+        left:50%;
+        top:10%;
+        width: 4cqi;
+        aspect-ratio:1;
+        background-color:rgb(63, 100, 63);
+        border-radius: 20% 100% 0% 100%;
+        box-shadow:inherit;
+        rotate:150deg;
+        transform-origin:top left;
+        transition:opacity 0.2s;
+    }
+    
+    &::after{
+        top:10%;
+        rotate:-90deg;
+    }
+
+    &:hover{
+        box-shadow:1cqi 1cqi 5cqi yellow;
+    }
+
+    &:focus{
+        --playState:paused;
+    }
+    
+    &:checked{
+        opacity:0;
+        transform: translateY(-10cqi) rotate(360deg) scale(3);
+        --playstate: paused;
+        counter-increment: apples score -2;
+    } 
+}
+
+.gui{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    font-size:10cqi;
+    padding-inline:2cqi;
+    pointer-events: none;
+    text-shadow:1cqi 1cqi 5cqi #000;
+}
+
+.timer span{
+    &::before{
+        content:"3";
+        animation: timer 100s -69.5s step-end;
+    }
+    &::after{
+        content:"0";
+        animation: timer 10s 0.5s 3 step-end;
+    }
+}
+
+@keyframes timer{
+    0% {content: "9";}
+    10% {content: "8";}
+    20% {content: "7";}
+    30% {content: "6";}
+    40% {content: "5";}
+    50% {content: "4";}
+    60% {content: "3";}
+    70% {content: "2";}
+    80% {content: "1";}
+    90% {content: "0";}
+}
+
+.score::after{
+    content:counter(score);
+}
+
