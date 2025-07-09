@@ -91,7 +91,7 @@ input[name="screen"]{
         translate: var(--translateX) -60cqi; /*we are adding this in for firefox debugging*/
     }
     to {
-        translate: calc(var(--translateX) + var(--offset, 0px)) 60cqi;
+        translate:var(--translateX) 60cqi;
     }
 }
 
@@ -189,11 +189,9 @@ h2{
 
 .orange{
     --rnd:calc(mod(sin((var(--i) / 24)* 90deg) * 731, 1));
-    --rnd2:calc(mod(sin((var(--i) / 24)* 90deg) * 889, 1));
     --translateX:calc(var(--rnd)* 91cqi - 45cqi);
     --angle:calc(var(--rnd)* 60deg - 30deg);
     --delay: calc(var(--i) * 1s + 3s);
-    --offset: calc((var(--rnd2)* 2 - 1)*20cqi);
     --scale:calc(mod(sin((var(--i) / 24)* 90deg) * 9231, 1) *0.3 + 0.7);
 
     appearance:none;
